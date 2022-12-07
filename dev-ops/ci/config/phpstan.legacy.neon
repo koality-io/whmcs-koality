@@ -1,0 +1,11 @@
+parameters:
+    level: 5
+    paths:
+        - %currentWorkingDirectory%/hooks.php
+        - %currentWorkingDirectory%/koality.php
+    scanDirectories:
+        - %currentWorkingDirectory%/src/
+        - phpstanScan
+    bootstrapFiles:
+        - %currentWorkingDirectory%/vendor/autoload.php
+    tmpDir: %currentWorkingDirectory%/dev-ops/ci/cache/phpstan/legacy
