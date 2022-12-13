@@ -50,6 +50,25 @@ jobs:
                     path: ./*
                     key: ${{ github.sha }}
 
+    php-cs-fixer:
+        runs-on: ubuntu-20.04
+        needs: build
+        steps:
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ env.php_version }}
+
+            -   name: Restore build
+                uses: actions/cache@v3
+                id: restore-build
+                with:
+                    path: ./*
+                    key: ${{ github.sha }}
+
+            -   name: Run php-cs-fixer
+                run: php dev-ops/ci/vendor/bin/php-cs-fixer fix --config dev-ops/ci/config/.php-cs-fixer.dist.php
+
     phpstan-legacy:
         runs-on: ubuntu-20.04
         needs: build
