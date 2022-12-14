@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace WHMCS\Module\Server\Koality;
 
-final class ProductOptions
+final class ProductOption
 {
     public const PLAN_ID = 'configoption1';
-    public const DOMAIN = 'configoption2';
-    public const ADDITIONAL_SINGLE_PROJECT = 'configoption3';
-    public const ADDITIONAL_THIRTY_PROJECTS = 'configoption4';
+    public const DOMAIN_APPLICATION = 'configoption2';
+    public const DOMAIN_LICENSE_ACTIVATION = 'configoption3';
+    public const ADDITIONAL_SINGLE_PROJECT = 'configoption4';
+    public const ADDITIONAL_THIRTY_PROJECTS = 'configoption5';
 
     private const OPTION_ADDITIONAL_SINGLE_PROJECT = 'additional_single_projects';
     private const OPTION_ADDITIONAL_THIRTY_PROJECTS = 'additional_thirty_projects';

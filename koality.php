@@ -10,24 +10,24 @@ if (!defined('WHMCS')) {
 
 require __DIR__ . '/vendor/autoload.php';
 
-use WHMCS\Module\Server\Koality\CustomFields;
 use WHMCS\Module\Server\Koality\KaApi;
 use WHMCS\Module\Server\Koality\Logger;
 use WHMCS\Module\Server\Koality\PlanCollection;
 use WHMCS\Module\Server\Koality\Plans\SinglePlan;
-use WHMCS\Module\Server\Koality\ProductOptions;
-use WHMCS\Module\Server\Koality\ServerOptions;
+use WHMCS\Module\Server\Koality\ProductOption;
+use WHMCS\Module\Server\Koality\ServerOption;
+use WHMCS\Module\Server\Koality\ServiceProperty;
 use WHMCS\Module\Server\Koality\Translator;
 use WHMCS\Module\Server\Koality\UrlHelper;
 
 function koality_getKaApiClient(array $params): KaApi
 {
     return new KaApi(
-        $params[ServerOptions::SERVER_SCHEME],
-        $params[ServerOptions::SERVER_HOST],
-        (int) $params[ServerOptions::SERVER_PORT],
-        $params[ServerOptions::SERVER_USERNAME],
-        $params[ServerOptions::SERVER_PASSWORD]
+        $params[ServerOption::SERVER_SCHEME],
+        $params[ServerOption::SERVER_HOST],
+        (int) $params[ServerOption::SERVER_PORT],
+        $params[ServerOption::SERVER_USERNAME],
+        $params[ServerOption::SERVER_PASSWORD]
     );
 }
 
@@ -56,32 +56,34 @@ function koality_ConfigOptions(): array
     $translator = Translator::getInstance($CONFIG);
 
     return [
-        ProductOptions::PLAN_ID => [
+        ProductOption::PLAN_ID => [
             'FriendlyName' => $translator->translate('koality_label_plan'),
             'Type' => 'dropdown',
-            'Size' => '25',
             'Options' => $planOptions,
             'Default' => $proPlan->getId(),
             'SimpleMode' => true,
         ],
-        ProductOptions::DOMAIN => [
-            'FriendlyName' => $translator->translate('koality_label_domain'),
+        ProductOption::DOMAIN_APPLICATION => [
+            'FriendlyName' => $translator->translate('koality_label_domain_application'),
             'Type' => 'text',
-            'Size' => '25',
             'Default' => '',
             'SimpleMode' => true,
         ],
-        ProductOptions::ADDITIONAL_SINGLE_PROJECT => [
+        ProductOption::DOMAIN_LICENSE_ACTIVATION => [
+            'FriendlyName' => $translator->translate('koality_label_domain_license_activation'),
+            'Type' => 'text',
+            'Default' => '',
+            'SimpleMode' => true,
+        ],
+        ProductOption::ADDITIONAL_SINGLE_PROJECT => [
             'FriendlyName' => $translator->translate('koality_label_additional_single_projects'),
             'Type' => 'text',
-            'Size' => '25',
             'Default' => '',
             'SimpleMode' => true,
         ],
-        ProductOptions::ADDITIONAL_THIRTY_PROJECTS => [
+        ProductOption::ADDITIONAL_THIRTY_PROJECTS => [
             'FriendlyName' => $translator->translate('koality_label_additional_thirty_projects'),
             'Type' => 'text',
-            'Size' => '25',
             'Default' => '',
             'SimpleMode' => true,
         ],
@@ -93,14 +95,15 @@ function koality_ClientArea(array $params): string
     global $CONFIG;
 
     $kaApi = koality_getKaApiClient($params);
-    $keyId = $params['customfields'][CustomFields::KEY_ID];
+    $keyId = $params['model']->serviceProperties->get(ServiceProperty::KEY_ID);
     $translator = Translator::getInstance($CONFIG);
 
     try {
         $license = $kaApi->retrieveLicense($keyId);
-        $domain = $params[ProductOptions::DOMAIN];
-        $activationUrl = UrlHelper::getActivationUrl($license, $domain);
-        $dashboardUrl = UrlHelper::getDashboardUrl($domain);
+        $domainApplication = $params[ProductOption::DOMAIN_APPLICATION];
+        $domainLicenseActivation = $params[ProductOption::DOMAIN_LICENSE_ACTIVATION];
+        $dashboardUrl = UrlHelper::getDashboardUrl($domainApplication);
+        $activationUrl = UrlHelper::getActivationUrl($license, $domainLicenseActivation);
 
         if ($license->getActivationInfo()->isActivated()) {
             return '<div class="tab-content"><div class="row"><div class="col-sm-3 text-left">' . $translator->translate('koality_button_license_activated') . '</div></div></div><br/>';
@@ -125,18 +128,18 @@ function koality_ClientArea(array $params): string
 function koality_CreateAccount(array $params): string
 {
     try {
-        $quantityOfSingleAdditionalProjects = ProductOptions::additionalSingleProjectAllowance($params);
-        $quantityOfThirtyAdditionalProjects = ProductOptions::additionalThirtyProjectsAllowance($params);
+        $quantityOfSingleAdditionalProjects = ProductOption::additionalSingleProjectAllowance($params);
+        $quantityOfThirtyAdditionalProjects = ProductOption::additionalThirtyProjectsAllowance($params);
         $plans = new PlanCollection();
-        $plan = $plans->getPlanById($params[ProductOptions::PLAN_ID]);
+        $plan = $plans->getPlanById($params[ProductOption::PLAN_ID]);
         $kaApi = koality_getKaApiClient($params);
         $license = $kaApi->createLicense($plan, $quantityOfSingleAdditionalProjects, $quantityOfThirtyAdditionalProjects);
-        $domain = $params[ProductOptions::DOMAIN];
+        $domainLicenseActivation = $params[ProductOption::DOMAIN_LICENSE_ACTIVATION];
 
         $params['model']->serviceProperties->save([
-            CustomFields::KEY_ID => $license->getKeyIdentifiers()->getKeyId(),
-            CustomFields::ACTIVATION_CODE => $license->getKeyIdentifiers()->getActivationCode(),
-            CustomFields::ACTIVATION_URL => UrlHelper::getActivationUrl($license, $domain),
+            ServiceProperty::KEY_ID => $license->getKeyIdentifiers()->getKeyId(),
+            ServiceProperty::ACTIVATION_CODE => $license->getKeyIdentifiers()->getActivationCode(),
+            ServiceProperty::ACTIVATION_URL => UrlHelper::getActivationUrl($license, $domainLicenseActivation),
         ]);
 
         return 'success';
@@ -150,7 +153,7 @@ function koality_CreateAccount(array $params): string
 function koality_SuspendAccount(array $params): string
 {
     try {
-        $keyId = $params['customfields'][CustomFields::KEY_ID];
+        $keyId = $params['model']->serviceProperties->get(ServiceProperty::KEY_ID);
         $kaApi = koality_getKaApiClient($params);
 
         $kaApi->suspendLicense($keyId);
@@ -166,7 +169,7 @@ function koality_SuspendAccount(array $params): string
 function koality_UnsuspendAccount(array $params): string
 {
     try {
-        $keyId = $params['customfields'][CustomFields::KEY_ID];
+        $keyId = $params['model']->serviceProperties->get(ServiceProperty::KEY_ID);
         $kaApi = koality_getKaApiClient($params);
 
         $kaApi->resumeLicense($keyId);
@@ -182,7 +185,7 @@ function koality_UnsuspendAccount(array $params): string
 function koality_TerminateAccount(array $params): string
 {
     try {
-        $keyId = $params['customfields'][CustomFields::KEY_ID];
+        $keyId = $params['model']->serviceProperties->get(ServiceProperty::KEY_ID);
         $kaApi = koality_getKaApiClient($params);
 
         $kaApi->terminateLicense($keyId);
@@ -198,11 +201,11 @@ function koality_TerminateAccount(array $params): string
 function koality_ChangePackage(array $params): string
 {
     try {
-        $keyId = $params['customfields'][CustomFields::KEY_ID];
-        $quantityOfSingleAdditionalProjects = ProductOptions::additionalSingleProjectAllowance($params);
-        $quantityOfThirtyAdditionalProjects = ProductOptions::additionalThirtyProjectsAllowance($params);
+        $keyId = $params['model']->serviceProperties->get(ServiceProperty::KEY_ID);
+        $quantityOfSingleAdditionalProjects = ProductOption::additionalSingleProjectAllowance($params);
+        $quantityOfThirtyAdditionalProjects = ProductOption::additionalThirtyProjectsAllowance($params);
         $plans = new PlanCollection();
-        $plan = $plans->getPlanById($params[ProductOptions::PLAN_ID]);
+        $plan = $plans->getPlanById($params[ProductOption::PLAN_ID]);
         $kaApi = koality_getKaApiClient($params);
 
         $kaApi->modifyLicense($keyId, $plan, $quantityOfSingleAdditionalProjects, $quantityOfThirtyAdditionalProjects);
