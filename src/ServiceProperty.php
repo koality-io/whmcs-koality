@@ -6,7 +6,7 @@ declare(strict_types=1);
 
 namespace WHMCS\Module\Server\Koality;
 
-final class CustomFields
+final class ServiceProperty
 {
     public const KEY_ID = 'keyId';
     public const ACTIVATION_CODE = 'activationCode';

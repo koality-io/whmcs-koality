@@ -6,7 +6,7 @@ declare(strict_types=1);
 
 namespace WHMCS\Module\Server\Koality;
 
-final class ServerOptions
+final class ServerOption
 {
     public const SERVER_SCHEME = 'serverhttpprefix';
     public const SERVER_HOST = 'serverhostname';

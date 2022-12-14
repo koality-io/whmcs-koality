@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace WHMCS\Module\Server\Koality\Service;
 
 use Illuminate\Database\ConnectionInterface;
-use WHMCS\Module\Server\Koality\CustomFields;
+use WHMCS\Module\Server\Koality\ServiceProperty;
 
 final class AddRequiredCustomFields
 {
@@ -33,19 +33,19 @@ final class AddRequiredCustomFields
         $nowDate = date('Y-m-d H:i:s');
 
         foreach ($customFields as $customField) {
-            if ($customField->fieldname === CustomFields::KEY_ID) {
+            if ($customField->fieldname === ServiceProperty::KEY_ID) {
                 $hasFieldKeyId = true;
 
                 continue;
             }
 
-            if ($customField->fieldname === CustomFields::ACTIVATION_CODE) {
+            if ($customField->fieldname === ServiceProperty::ACTIVATION_CODE) {
                 $hasFieldActivationCode = true;
 
                 continue;
             }
 
-            if ($customField->fieldname === CustomFields::ACTIVATION_URL) {
+            if ($customField->fieldname === ServiceProperty::ACTIVATION_URL) {
                 $hasFieldActivationUrl = true;
 
                 continue;
@@ -53,15 +53,15 @@ final class AddRequiredCustomFields
         }
 
         if (!$hasFieldKeyId) {
-            $this->createAndSaveCustomField($pid, CustomFields::KEY_ID, $nowDate);
+            $this->createAndSaveCustomField($pid, ServiceProperty::KEY_ID, $nowDate);
         }
 
         if (!$hasFieldActivationCode) {
-            $this->createAndSaveCustomField($pid, CustomFields::ACTIVATION_CODE, $nowDate);
+            $this->createAndSaveCustomField($pid, ServiceProperty::ACTIVATION_CODE, $nowDate);
         }
 
         if (!$hasFieldActivationUrl) {
-            $this->createAndSaveCustomField($pid, CustomFields::ACTIVATION_URL, $nowDate);
+            $this->createAndSaveCustomField($pid, ServiceProperty::ACTIVATION_URL, $nowDate);
         }
     }
 

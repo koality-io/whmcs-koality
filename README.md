@@ -42,7 +42,7 @@ and configure it further in the Module Settings:
 
 ![Module Settings](./docs/module-settings.png)
 
-The `White label domain` field is optional and can be used to set the domain name for the white label monitoring URL. If the domain name is not specified, the default Koality url `https://koality.360monitoring.com/` will be used.
+The `White label domain (application)` and `White label domain (license activation)` fields are optional and can be used to set the domain name for the white label monitoring URL. If the domain name is not specified, the default domains `koality.360monitoring.com` (application) and `license.360monitoring.com` (license activation) will be used.
 
 The `Additional single projects` and `Additional 30 projects` fields are optional and can be left empty.
 
