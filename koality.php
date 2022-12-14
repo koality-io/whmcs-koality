@@ -67,24 +67,28 @@ function koality_ConfigOptions(): array
             'FriendlyName' => $translator->translate('koality_label_domain_application'),
             'Type' => 'text',
             'Default' => '',
+            'Description' => 'optional',
             'SimpleMode' => true,
         ],
         ProductOption::DOMAIN_LICENSE_ACTIVATION => [
             'FriendlyName' => $translator->translate('koality_label_domain_license_activation'),
             'Type' => 'text',
             'Default' => '',
+            'Description' => 'optional',
             'SimpleMode' => true,
         ],
         ProductOption::ADDITIONAL_SINGLE_PROJECT => [
             'FriendlyName' => $translator->translate('koality_label_additional_single_projects'),
             'Type' => 'text',
             'Default' => '',
+            'Description' => 'optional',
             'SimpleMode' => true,
         ],
         ProductOption::ADDITIONAL_THIRTY_PROJECTS => [
             'FriendlyName' => $translator->translate('koality_label_additional_thirty_projects'),
             'Type' => 'text',
             'Default' => '',
+            'Description' => 'optional',
             'SimpleMode' => true,
         ],
     ];
