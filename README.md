@@ -42,15 +42,23 @@ and configure it further in the Module Settings:
 
 ![Module Settings](./docs/module-settings.png)
 
-The `White label domain` field is optional and can be used to set the domain name for the white label monitoring URL. If the domain name is not specified, the default 360 Monitoring URL will be used.
+The `White label domain` field is optional and can be used to set the domain name for the white label monitoring URL. If the domain name is not specified, the default Koality url `https://koality.360monitoring.com/` will be used.
 
 The `Additional single projects` and `Additional 30 projects` fields are optional and can be left empty.
 
-To allow the customer to choose additional projects (pay-as-you-grow model), go to the Configurable Options, and add a new group with two options inside, named `Additional single projects` and `Additional thirty projects` respectively and assign them to the relevant products:
+### Configurable Options
+
+To allow the customer to choose additional projects (pay-as-you-grow model), go to the Configurable Options, and add a new group with two options inside, named `additional_single_projects|Additional single projects` and `additional_thirty_projects|Additional thirty projects` respectively and assign them to the relevant products.
+
+It's required that the left side of the pipe in the option name remains untouched, but you can edit the right side as you like i.e. `additional_single_projects|Write your own product option name here`.
 
 ![Configurable Options](./docs/configurable-options.png)
 
-TBD for upgrade/downgrade
+### Product upgrades
+
+You also can configure product upgrades, but it's only allowed to upgrade from a single plan to an agency plan. A downgrade from the agency plan to the single plan is restricted by KA.
+
+![Product upgrades](./docs/product-upgrades.png)
 
 ## Email template customization
 
