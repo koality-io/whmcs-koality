@@ -54,9 +54,9 @@ It's required that the left side of the pipe in the option name remains untouche
 
 ![Configurable Options](./docs/configurable-options.png)
 
-### Product upgrades
+### Product upgrades/downgrades
 
-You also can configure product upgrades, but it's only allowed to upgrade from a single plan to an agency plan. A downgrade from the agency plan to the single plan is restricted by KA.
+You also can configure product upgrades, but it's only allowed to upgrade from a single plan to a higher plan (e.g. Single -> Agency). A downgrade from a higher plan to a lower plan (e.g. Agency -> Single) is restricted by the Plesk Key Administrator.
 
 ![Product upgrades](./docs/product-upgrades.png)
 
