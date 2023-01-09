@@ -75,6 +75,10 @@ The Koality license can be activated through the client area or by sending the a
 
 In case of problems look at the System Logs -> Module Log.
 
+## Support
+
+If you've any issues or need support, feel free to contact support-koality@360monitoring.com.
+
 ## Copyright
 
 Copyright 2022. [Plesk International GmbH](https://www.plesk.com). All rights reserved.
