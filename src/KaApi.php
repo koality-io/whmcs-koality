@@ -55,7 +55,7 @@ final class KaApi
             ],
         ];
 
-        $response = $this->client->post('/jsonrest/business-partner/30/keys?return-key-state=yes&retailer=whmcs-ka', $options);
+        $response = $this->client->post('/jsonrest/business-partner/30/keys?return-key-state=yes', $options);
         $data = json_decode($response->getBody()->getContents(), true, 512, \JSON_THROW_ON_ERROR);
 
         return new License($data);
