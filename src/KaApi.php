@@ -8,6 +8,7 @@ namespace WHMCS\Module\Server\Koality;
 
 use GuzzleHttp\Client;
 use WHMCS\Module\Server\Koality\Dto\License;
+use WHMCS\Module\Server\Koality\Plans\PersonalPlan;
 
 final class KaApi
 {
@@ -126,7 +127,7 @@ final class KaApi
      */
     private function buildItems(Plan $plan, int $quantityOfSingleAdditionalProjects, int $quantityOfThirtyAdditionalProjects): array
     {
-        return [
+        $items = [
             [
                 'item' => $plan->getPlanApiConst(),
             ],
@@ -134,10 +135,15 @@ final class KaApi
                 'item' => $plan->getSingleAdditionalProjectApiConst(),
                 'quantity' => $quantityOfSingleAdditionalProjects,
             ],
-            [
+        ];
+
+        if (!($plan instanceof PersonalPlan)) {
+            $items[] = [
                 'item' => $plan->getThirtyAdditionalProjectsApiConst(),
                 'quantity' => $quantityOfThirtyAdditionalProjects,
-            ],
-        ];
+            ];
+        }
+
+        return $items;
     }
 }
