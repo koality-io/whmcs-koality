@@ -9,7 +9,7 @@ namespace WHMCS\Module\Server\Koality\Plans;
 
 use WHMCS\Module\Server\Koality\Plan;
 
-final class SinglePlan implements Plan
+final class BusinessPlan implements Plan
 {
     public function getId(): string
     {
@@ -18,7 +18,7 @@ final class SinglePlan implements Plan
 
     public function getName(): string
     {
-        return 'Koality';
+        return 'Business';
     }
 
     public function getPlanApiConst(): string

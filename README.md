@@ -8,9 +8,16 @@ TBD
 
 The module supports the following Koality plans:
 
-|          | Single | Agency |
-|----------|--------|--------|
-| Projects | 1      | 30     |
+|                                | Personal | Business | Agency |
+|--------------------------------|----------|----------|--------|
+| Number of monitored projects   | 1        | 1        | 30     |
+| Number of monitoring areas     | 6        | 6        | 6      |
+| Number of monitored pages      | 5        | 15       | 15     |
+| Test interval                  | daily    | hourly   | hourly |
+| Advanced e-commerce monitoring | no       | yes      | yes    |
+| Full site checks               | yes      | yes      | yes    |
+| Scheduled full site checks     | no       | yes      | yes    |
+| Multichannel alerts            | no       | yes      | yes    |
 
 In addition to the projects included in the plan, an additional amount of projects can be set in the product options.
 
@@ -56,7 +63,7 @@ It's required that the left side of the pipe in the option name remains untouche
 
 ### Product upgrades/downgrades
 
-You also can configure product upgrades, but it's only allowed to upgrade from a single plan to a higher plan (e.g. Single -> Agency). A downgrade from a higher plan to a lower plan (e.g. Agency -> Single) is restricted by the Plesk Key Administrator.
+You also can configure product upgrades, but it's only allowed to upgrade from a single plan to a higher plan (e.g. Business -> Agency). A downgrade from a higher plan to a lower plan (e.g. Agency -> Business) is restricted by the Plesk Key Administrator.
 
 ![Product upgrades](./docs/product-upgrades.png)
 

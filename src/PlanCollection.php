@@ -8,7 +8,8 @@ namespace WHMCS\Module\Server\Koality;
 
 use Assert\Assert;
 use WHMCS\Module\Server\Koality\Plans\AgencyPlan;
-use WHMCS\Module\Server\Koality\Plans\SinglePlan;
+use WHMCS\Module\Server\Koality\Plans\BusinessPlan;
+use WHMCS\Module\Server\Koality\Plans\PersonalPlan;
 
 final class PlanCollection
 {
@@ -19,10 +20,12 @@ final class PlanCollection
 
     public function __construct()
     {
-        $singlePlan = new SinglePlan();
+        $personalPlan = new PersonalPlan();
+        $businessPlan = new BusinessPlan();
         $agencyPlan = new AgencyPlan();
 
-        $this->plans[$singlePlan->getId()] = $singlePlan;
+        $this->plans[$personalPlan->getId()] = $personalPlan;
+        $this->plans[$businessPlan->getId()] = $businessPlan;
         $this->plans[$agencyPlan->getId()] = $agencyPlan;
     }
 

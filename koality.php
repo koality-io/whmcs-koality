@@ -13,7 +13,7 @@ require __DIR__ . '/vendor/autoload.php';
 use WHMCS\Module\Server\Koality\KaApi;
 use WHMCS\Module\Server\Koality\Logger;
 use WHMCS\Module\Server\Koality\PlanCollection;
-use WHMCS\Module\Server\Koality\Plans\SinglePlan;
+use WHMCS\Module\Server\Koality\Plans\BusinessPlan;
 use WHMCS\Module\Server\Koality\ProductOption;
 use WHMCS\Module\Server\Koality\ServerOption;
 use WHMCS\Module\Server\Koality\ServiceProperty;
@@ -52,7 +52,7 @@ function koality_ConfigOptions(): array
         $planOptions[$plan->getId()] = $plan->getName();
     }
 
-    $proPlan = new SinglePlan();
+    $businessPlan = new BusinessPlan();
     $translator = Translator::getInstance($CONFIG);
 
     return [
@@ -60,7 +60,7 @@ function koality_ConfigOptions(): array
             'FriendlyName' => $translator->translate('koality_label_plan'),
             'Type' => 'dropdown',
             'Options' => $planOptions,
-            'Default' => $proPlan->getId(),
+            'Default' => $businessPlan->getId(),
             'SimpleMode' => true,
         ],
         ProductOption::DOMAIN_APPLICATION => [

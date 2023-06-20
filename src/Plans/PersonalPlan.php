@@ -9,30 +9,30 @@ namespace WHMCS\Module\Server\Koality\Plans;
 
 use WHMCS\Module\Server\Koality\Plan;
 
-final class AgencyPlan implements Plan
+final class PersonalPlan implements Plan
 {
     public function getId(): string
     {
-        return 'agency';
+        return 'personal';
     }
 
     public function getName(): string
     {
-        return 'Agency';
+        return 'Personal';
     }
 
     public function getPlanApiConst(): string
     {
-        return 'KOA-AGC-30-1M';
+        return 'KOA-BSC-PRJ-1-1M';
     }
 
     public function getSingleAdditionalProjectApiConst(): string
     {
-        return 'KOA-PRJ-ADD-1-1M';
+        return 'KOA-BSC-PRJ-ADD-1-1M';
     }
 
     public function getThirtyAdditionalProjectsApiConst(): string
     {
-        return 'KOA-PRJ-ADD-30-1M';
+        return '';
     }
 }
