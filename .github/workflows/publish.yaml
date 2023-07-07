@@ -35,8 +35,13 @@ jobs:
             -   name: Install application dependencies
                 run: composer install --prefer-dist --no-dev --no-progress
 
+            -   name: Downgrade to php 7.3
+                run: vendor/bin/rector -c dev-ops/rector-php-73.php
+
             -   name: Cleanup
-                run: rm -fr .git .github dev-ops .gitignore Makefile
+                run: |
+                    composer remove rector/rector --no-progress
+                    rm -fr .git .github dev-ops .gitignore Makefile
 
             -   name: Create binaries
                 working-directory: ../
