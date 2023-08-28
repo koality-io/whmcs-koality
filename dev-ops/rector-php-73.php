@@ -8,10 +8,10 @@ use Rector\Set\ValueObject\DowngradeLevelSetList;
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
         __DIR__ . '/../lang',
-        __DIR__ . '/../lib',
+        __DIR__ . '/../src',
         __DIR__ . '/../vendor',
         __DIR__ . '/../hooks.php',
-        __DIR__ . '/../p360monitoring.php',
+        __DIR__ . '/../koality.php',
     ]);
 
     $rectorConfig->sets([
