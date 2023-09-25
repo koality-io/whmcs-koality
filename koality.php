@@ -108,14 +108,11 @@ function koality_ClientArea(array $params): string
         $domainLicenseActivation = $params[ProductOption::DOMAIN_LICENSE_ACTIVATION];
         $dashboardUrl = UrlHelper::getDashboardUrl($domainApplication);
         $activationUrl = UrlHelper::getActivationUrl($license, $domainLicenseActivation);
-
-        if ($license->getActivationInfo()->isActivated()) {
-            return '<div class="tab-content"><div class="row"><div class="col-sm-3 text-left">' . $translator->translate('koality_button_license_activated') . '</div></div></div><br/>';
-        }
-
         $html = '';
 
-        if (!$license->isTerminated() && !$license->isSuspended()) {
+        if ($license->getActivationInfo()->isActivated()) {
+            $html .= '<div class="tab-content"><div class="row"><div class="col-sm-3 text-left">' . $translator->translate('koality_button_license_activated') . '</div></div></div><br/>';
+        } elseif (!$license->isTerminated() && !$license->isSuspended()) {
             $html .= '<div class="tab-content"><a class="btn btn-block btn-info" href="' . $activationUrl . '" target="_blank">' . $translator->translate('koality_button_activate_license') . '</a></div><br/>';
         }
 
