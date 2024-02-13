@@ -1,5 +1,7 @@
 <?php
 
+// Copyright 2024. WebPros International GmbH. All rights reserved.
+
 declare(strict_types=1);
 
 namespace WHMCS\Module\Server\Koality\Dto;

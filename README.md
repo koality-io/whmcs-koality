@@ -88,4 +88,4 @@ If you've any issues or need support, feel free to contact support-koality@360mo
 
 ## Copyright
 
-Copyright 2022. [Plesk International GmbH](https://www.plesk.com). All rights reserved.
+Copyright 2024. [WebPros International GmbH](https://webpros.com). All rights reserved.

@@ -1,7 +1,6 @@
 <?php
-/*
- * Copyright 2022. Plesk International GmbH. All rights reserved.
- */
+
+// Copyright 2024. WebPros International GmbH. All rights reserved.
 
 declare(strict_types=1);
 

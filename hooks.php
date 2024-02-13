@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
-// Copyright 2022. Plesk International GmbH. All rights reserved.
-
+// Copyright 2024. WebPros International GmbH. All rights reserved.
 // This file is only kept here to overwrite older versions to prevent module errors
+
+declare(strict_types=1);
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use WHMCS\Module\Server\Koality\Constants;
